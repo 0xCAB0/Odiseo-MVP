@@ -3,7 +3,9 @@ import dependencies.Dependencies
 plugins {
     id(BuildPlugins.ANDROID_APPLICATION)
     id(BuildPlugins.KOTLIN_ANDROID)
-    id(BuildPlugins.KOTLIN_ANDROID_EXTENSIONS)
+    id("org.jetbrains.kotlin.android")
+    id(BuildPlugins.KOTLIN_KAPT)
+    id(BuildPlugins.KOTLIN_PARCELIZE)
 }
 
 android {
@@ -45,15 +47,15 @@ android {
 
     buildFeatures {
         dataBinding = true
+        viewBinding = true
     }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = "1.8"
     }
 
     lintOptions {
@@ -81,17 +83,11 @@ android {
 }
 
 dependencies {
-/*    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)*/
 
-
-    implementation(Dependencies.KOTLIN)
-    implementation(Dependencies.APPCOMPAT)
-    implementation(Dependencies.MATERIAL)
-    implementation(Dependencies.CONSTRAIN_LAYOUT)
-    implementation(Dependencies.NAVIGATION_FRAGMENT)
-    implementation(Dependencies.TIMBER)
-    implementation(Dependencies.LOGGING)
-    implementation(Dependencies.PLAY_CORE)
-    implementation(Dependencies.DAGGER)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 }

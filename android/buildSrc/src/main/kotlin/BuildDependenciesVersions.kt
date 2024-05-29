@@ -2,7 +2,7 @@
  * Configuration version of all build dependencies
  */
 object BuildDependenciesVersions {
-    const val KOTLIN = "1.6.0"
+    const val KOTLIN = "1.8.0"
     const val APPCOMPAT = "1.2.0"
     const val MATERIAL = "1.2.1"
     const val COROUTINES = "1.3.9"

@@ -16,7 +16,7 @@ repositories {
 object BuildPluginsVersions {
     const val GRADLE_ANDROID = "7.2.1"
     const val GRADLE_VERSIONS = "0.33.0"
-    const val KOTLIN = "1.6.0"
+    const val KOTLIN = "1.8.0"
     const val NAVIGATION = "2.5.0-alpha01"
     const val DOKKA = "0.10.0"
     const val KTLINT = "0.39.0"
@@ -32,7 +32,7 @@ dependencies {
     implementation("com.android.tools.build:gradle:${BuildPluginsVersions.GRADLE_ANDROID}")
     implementation("com.github.ben-manes:gradle-versions-plugin:${BuildPluginsVersions.GRADLE_VERSIONS}")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${BuildPluginsVersions.KOTLIN}")
-    implementation("org.jetbrains.kotlin:kotlin-allopen:${BuildPluginsVersions.KOTLIN}")
+    implementation("org.jetbrains.kotlin:kotlin-allopen:1.6.0")
     implementation("androidx.navigation:navigation-safe-args-gradle-plugin:${BuildPluginsVersions.NAVIGATION}")
     implementation("com.vanniktech:gradle-dependency-graph-generator-plugin:${BuildPluginsVersions.GRAPH_GENERATOR}")
     implementation("org.jetbrains.dokka:dokka-gradle-plugin:${BuildPluginsVersions.DOKKA}")
