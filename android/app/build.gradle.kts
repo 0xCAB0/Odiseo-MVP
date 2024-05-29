@@ -1,43 +1,97 @@
+import dependencies.Dependencies
+
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
+    id(BuildPlugins.ANDROID_APPLICATION)
+    id(BuildPlugins.KOTLIN_ANDROID)
+    id(BuildPlugins.KOTLIN_ANDROID_EXTENSIONS)
 }
 
 android {
-    namespace = "es.thalos.odiseo.mvp"
-    compileSdk = 34
-
+    compileSdk = (BuildAndroidConfig.COMPILE_SDK_VERSION)
     defaultConfig {
-        applicationId = "es.thalos.odiseo.mvp"
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = BuildAndroidConfig.APPLICATION_ID
+        minSdk = (BuildAndroidConfig.MIN_SDK_VERSION)
+        targetSdk = (BuildAndroidConfig.TARGET_SDK_VERSION)
+        buildToolsVersion = (BuildAndroidConfig.BUILD_TOOLS_VERSION)
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        versionCode = BuildAndroidConfig.VERSION_CODE
+        versionName = BuildAndroidConfig.VERSION_NAME
+
+        testInstrumentationRunner = BuildAndroidConfig.TEST_INSTRUMENTATION_RUNNER
+        testInstrumentationRunnerArguments.putAll(BuildAndroidConfig.TEST_INSTRUMENTATION_RUNNER_ARGUMENTS)
     }
 
     buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        getByName(BuildType.RELEASE) {
+            proguardFiles("proguard-android-optimize.txt", "proguard-rules.pro")
+            isMinifyEnabled = BuildTypeRelease.isMinifyEnabled
+            isTestCoverageEnabled = BuildTypeRelease.isTestCoverageEnabled
+        }
+
+        getByName(BuildType.DEBUG) {
+            applicationIdSuffix = BuildTypeDebug.applicationIdSuffix
+            versionNameSuffix = BuildTypeDebug.versionNameSuffix
+            isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
+            isTestCoverageEnabled = BuildTypeDebug.isTestCoverageEnabled
         }
     }
+
+    flavorDimensions += (BuildProductDimensions.ENVIRONMENT)
+    productFlavors {
+        ProductFlavorDevelop.appCreate(this)
+        ProductFlavorQA.appCreate(this)
+        ProductFlavorProduction.appCreate(this)
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    lintOptions {
+        lintConfig = rootProject.file(".lint/config.xml")
+        isCheckAllWarnings = true
+        isWarningsAsErrors = true
+    }
+
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+        unitTests.isReturnDefaultValues = true
+    }
+
+    sourceSets {
+        getByName("main") {
+            java.srcDir("src/main/kotlin")
+        }
+        getByName("test") {
+            java.srcDir("src/test/kotlin")
+        }
+        getByName("androidTest") {
+            java.srcDir("src/androidTest/kotlin")
+        }
     }
 }
 
 dependencies {
+/*    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)*/
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(Dependencies.KOTLIN)
+    implementation(Dependencies.APPCOMPAT)
+    implementation(Dependencies.MATERIAL)
+    implementation(Dependencies.CONSTRAIN_LAYOUT)
+    implementation(Dependencies.NAVIGATION_FRAGMENT)
+    implementation(Dependencies.TIMBER)
+    implementation(Dependencies.LOGGING)
+    implementation(Dependencies.PLAY_CORE)
+    implementation(Dependencies.DAGGER)
 }

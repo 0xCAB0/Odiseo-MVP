@@ -1,0 +1,5 @@
+/*
+ * Copyright $YEAR NTT-DATA
+ *
+ */
+
