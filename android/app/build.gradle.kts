@@ -1,4 +1,5 @@
 import dependencies.Dependencies
+import java.io.ByteArrayOutputStream
 
 plugins {
     id(BuildPlugins.ANDROID_APPLICATION)
@@ -82,9 +83,46 @@ android {
     }
 }
 
+tasks.register("makeDeps") {
+    description = "Build gomobile.aar (Berty go core)"
+
+    outputs.files(fileTree(mapOf("dir" to "${rootDir.path}/libs", "include" to listOf("*.jar", "*.aar"))))
+
+    doLast {
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            logger.warn("Warning: can't run make on Windows, you must build gomobile.aar manually")
+            return@doLast
+        }
+
+        val checkMakeInPath = exec {
+            standardOutput = ByteArrayOutputStream() // equivalent to '> /dev/null'
+            isIgnoreExitValue = true
+            commandLine("bash", "-l", "-c", "command -v make")
+        }
+
+        if (checkMakeInPath.exitValue == 0) {
+            exec {
+                val makefileDir = "${rootDir.path}/.."
+                workingDir = file(makefileDir)
+                environment("PWD", makefileDir)
+                commandLine("make", "android.app_deps")
+            }
+        } else {
+            logger.warn("Warning: make command not found in PATH")
+        }
+    }
+}
+
+/*repositories {
+    flatDir {
+        dirs("libs")
+    }
+}*/
+
 dependencies {
 
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
+    implementation(project(BuildModules.CORE))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
