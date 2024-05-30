@@ -39,9 +39,6 @@ endif
 	@echo ""
 	@echo "  rm -rf $(HOME)/.gradle/caches"
 
-.PHONY: android.app_deps
-android.app_deps: android.gomobile
-
 .PHONY: android.gomobile
 android.gomobile: android/libs/gobridge.aar
 
@@ -57,5 +54,5 @@ android/libs/gobridge.aar: $(bridge_src)
 		-target $(GOMOBILE_ANDROID_TARGET) \
 		-androidapi $(minimum_android_ver) \
 		./go/framework/bertybridge
-	touch $@
+	cd .. && touch $@
 	cd .. && $(GO) mod tidy

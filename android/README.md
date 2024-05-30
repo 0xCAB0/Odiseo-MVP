@@ -2,9 +2,30 @@
 
 This repo contains the code for an offline communication application prototype using the [Berty Protocol](https://berty.tech)
 
+## Project Structure overview
+
+For this MVP, the project structure is strictly based on the [berty app](https://github.com/berty/berty) monolithic architecture
+and picking up just the necessary code for the project
+
+- the `go` module contains the code that will be compiled into the `gomobile.aar` dependency, alongside all the go code the original berty project uses
+  for version **v2.470.3**
+- the `android` module contains the prototype implementation
+
 ## Set-Up
 
-TODO
+1. Install `asdf` following [this tutorial](https://asdf-vm.com/guide/getting-started.html)
+2. Install the necessary tools
+
+   ```bash
+   make asdf.install_tools: asdf.install_plugins
+   ```
+
+3. Enter the `android` folder: `cd android`
+4. Build the `gomobile` dependency
+
+   ```bash
+   make android.gomobile
+   ```
 
 ### Troubleshooting
 
