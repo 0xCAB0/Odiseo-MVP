@@ -19,8 +19,8 @@ minimum_android_ver = 21
 
 .PHONY: clean.caches
 clean.caches:
-	rm -rf /home/varo/.gradle/caches && \
-	rm -rf /home/varo/.gradle/.tmp/
+	rm -rf ~/.gradle/caches && \
+	rm -rf ~/.gradle/.tmp/
 
 
 .PHONY: clean
@@ -29,6 +29,7 @@ clean:
 
 	# Android files
 	rm -rf .gradle
+	rm -rf .idea
 	rm -rf build
 	rm -rf app/build
 	rm -f libs/gobridge.aar

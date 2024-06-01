@@ -1,4 +1,5 @@
 import dependencies.Dependencies
+import org.jetbrains.dokka.ReflectDsl.get
 import java.io.ByteArrayOutputStream
 
 plugins {
@@ -86,7 +87,7 @@ android {
 tasks.register("makeDeps") {
     description = "Build gomobile.aar (Berty go core)"
 
-    outputs.files(fileTree(mapOf("dir" to "${rootDir.path}/libs", "include" to listOf("*.jar", "*.aar"))))
+    outputs.files(fileTree(mapOf("dir" to "${rootDir}/libs", "include" to listOf("*.jar", "*.aar"))))
 
     doLast {
         if (System.getProperty("os.name").toLowerCase().contains("windows")) {
@@ -102,10 +103,11 @@ tasks.register("makeDeps") {
 
         if (checkMakeInPath.exitValue == 0) {
             exec {
-                val makefileDir = "${rootDir.path}/.."
+                val makefileDir = "$rootDir"
+                logger.info(makefileDir)
                 workingDir = file(makefileDir)
                 environment("PWD", makefileDir)
-                commandLine("make", "android.app_deps")
+                commandLine("make", "android.gomobile")
             }
         } else {
             logger.warn("Warning: make command not found in PATH")
@@ -113,15 +115,13 @@ tasks.register("makeDeps") {
     }
 }
 
-/*repositories {
-    flatDir {
-        dirs("libs")
-    }
-}*/
 
 dependencies {
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
+
+    implementation(tasks.named("makeDeps").map { it.outputs.files })
+
     implementation(project(BuildModules.CORE))
 
     implementation(libs.androidx.core.ktx)
