@@ -17,16 +17,21 @@ android_gomobile_cache="$(PWD)/.gomobile-cache"
 ext_ldflags = -ldflags="-X berty.tech/berty/v2/go/pkg/bertyversion.VcsRef=$(VCS_REF) -X berty.tech/berty/v2/go/pkg/bertyversion.Version=$(VERSION)"
 minimum_android_ver = 21
 
+.PHONY: clean.caches
+clean.caches:
+	rm -rf /home/varo/.gradle/caches && \
+	rm -rf /home/varo/.gradle/.tmp/
+
 
 .PHONY: clean
 clean:
 	./gradlew clean || true
 
 	# Android files
-	rm -rf android/.gradle
-	rm -rf android/build
-	rm -rf android/app/build
-	rm -f android/libs/gobridge.aar
+	rm -rf .gradle
+	rm -rf build
+	rm -rf app/build
+	rm -f libs/gobridge.aar
 	# gomobile cache
 
 ifeq (, $(wildcard $(android_gomobile_cache)))
