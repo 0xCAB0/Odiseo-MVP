@@ -8,6 +8,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id(BuildPlugins.KOTLIN_KAPT)
     id(BuildPlugins.KOTLIN_PARCELIZE)
+    id(BuildPlugins.DAGGER_HILT)
 }
 
 android {
@@ -130,4 +131,12 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.compiler)
 }
+
+kapt {
+    correctErrorTypes = true
+}
+

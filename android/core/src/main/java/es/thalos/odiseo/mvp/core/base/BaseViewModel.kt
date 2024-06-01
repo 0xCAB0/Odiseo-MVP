@@ -1,6 +1,5 @@
 package es.thalos.odiseo.mvp.core.base
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -20,12 +19,7 @@ import kotlin.coroutines.CoroutineContext
  * @param dispatcher instance of [CoroutineDispatcher]
  */
 abstract class BaseViewModel(
-    private val coroutineExceptionHandler: CoroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
-        Log.e(
-            "BaseViewModel",
-            "CoroutineExceptionHandler handled crash $exception \n ${exception.cause?.message}"
-        )
-    },
+    private val coroutineExceptionHandler: CoroutineExceptionHandler,
     private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
     /**
