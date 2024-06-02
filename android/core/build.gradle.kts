@@ -5,6 +5,11 @@ import extensions.kapt
 plugins {
     id("commons.android-library")
 }
+
+android{
+    namespace = "es.thalos.odiseo.mvp.core"
+}
+
 dependencies {
 
     dependencies {

@@ -1,6 +1,7 @@
 import dependencies.Dependencies
 import org.jetbrains.dokka.ReflectDsl.get
 import java.io.ByteArrayOutputStream
+import java.util.Locale
 
 plugins {
     id(BuildPlugins.ANDROID_APPLICATION)
@@ -12,6 +13,7 @@ plugins {
 }
 
 android {
+    namespace = "es.thalos.odiseo.mvp"
     compileSdk = (BuildAndroidConfig.COMPILE_SDK_VERSION)
     defaultConfig {
         applicationId = BuildAndroidConfig.APPLICATION_ID
@@ -54,17 +56,17 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 
-    lintOptions {
+    lint {
         lintConfig = rootProject.file(".lint/config.xml")
-        isCheckAllWarnings = true
-        isWarningsAsErrors = true
+        checkAllWarnings = true
+        warningsAsErrors = true
     }
 
     testOptions {
@@ -91,7 +93,7 @@ tasks.register("makeDeps") {
     outputs.files(fileTree(mapOf("dir" to "${rootDir}/libs", "include" to listOf("*.jar", "*.aar"))))
 
     doLast {
-        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+        if (System.getProperty("os.name").lowercase(Locale.getDefault()).contains("windows")) {
             logger.warn("Warning: can't run make on Windows, you must build gomobile.aar manually")
             return@doLast
         }
@@ -108,6 +110,9 @@ tasks.register("makeDeps") {
                 logger.info(makefileDir)
                 workingDir = file(makefileDir)
                 environment("PWD", makefileDir)
+                commandLine("cd", "..")
+                commandLine("make", "asdf.install_tools")
+                commandLine("cd", "android")
                 commandLine("make", "android.gomobile")
             }
         } else {
