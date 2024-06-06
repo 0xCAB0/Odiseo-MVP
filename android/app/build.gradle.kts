@@ -85,6 +85,11 @@ android {
             java.srcDir("src/androidTest/kotlin")
         }
     }
+
+    packagingOptions {
+        exclude("META-INF/**")
+    }
+
 }
 
 tasks.register("makeDeps") {
@@ -126,7 +131,7 @@ dependencies {
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
 
-    implementation(tasks.named("makeDeps").map { it.outputs.files })
+    //implementation(tasks.named("makeDeps").map { it.outputs.files })
 
     implementation(project(BuildModules.CORE))
 

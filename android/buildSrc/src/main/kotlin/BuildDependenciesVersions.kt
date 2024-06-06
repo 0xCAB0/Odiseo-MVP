@@ -31,7 +31,6 @@ object BuildDependenciesVersions {
     const val ARROW = "1.1.3"
     const val LEAKCANARY = "2.8.1"
     const val DATABINDING = "3.1.4"
-    const val HILT = "2.43.2"
     const val CORE_DATA = "2.0.0@aar"
     const val CORE_DATA_COMMONS = "2.0.0"
     const val CORE_DATA_NETWORK = "2.0.0@aar"
