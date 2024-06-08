@@ -1,4 +1,6 @@
 import dependencies.Dependencies
+import extensions.addTestsDependencies
+
 import org.jetbrains.dokka.ReflectDsl.get
 import java.io.ByteArrayOutputStream
 import java.util.Locale
@@ -43,6 +45,11 @@ android {
         }
     }
 
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+
+
     flavorDimensions += (BuildProductDimensions.ENVIRONMENT)
     productFlavors {
         ProductFlavorDevelop.appCreate(this)
@@ -56,11 +63,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_18
+        targetCompatibility = JavaVersion.VERSION_18
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "18"
     }
 
     lint {
@@ -118,7 +125,11 @@ tasks.register("makeDeps") {
                 commandLine("cd", "..")
                 commandLine("make", "asdf.install_tools")
                 commandLine("cd", "android")
-                commandLine("make", "android.gomobile")
+                try{
+                commandLine("make", "android.gomobile")}
+                catch (e: Exception){
+                    logger.warn(e.toString())
+                }
             }
         } else {
             logger.warn("Warning: make command not found in PATH")
@@ -131,7 +142,7 @@ dependencies {
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
 
-    //implementation(tasks.named("makeDeps").map { it.outputs.files })
+    implementation(tasks.named("makeDeps").map { it.outputs.files })
 
     implementation(project(BuildModules.CORE))
 
@@ -144,6 +155,8 @@ dependencies {
 
     implementation(libs.hilt.android)
     implementation(libs.hilt.compiler)
+
+    addTestsDependencies()
 }
 
 kapt {

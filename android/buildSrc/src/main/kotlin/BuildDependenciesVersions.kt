@@ -16,7 +16,7 @@ object BuildDependenciesVersions {
     const val CONSTRAIN_LAYOUT = "2.0.2"
     const val SWIPE_REFRESH_LAYOUT = "1.1.0"
     const val PAGING = "2.1.2"
-    const val DAGGER = "2.40"
+    const val DAGGER = "2.41"
     const val TIMBER = "4.7.1"
     const val RETROFIT = "2.9.0"
     const val LOGGING = "4.9.0"

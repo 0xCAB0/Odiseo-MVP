@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.1.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.1.0)" variant="all" version="8.1.0">
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.core:core-ktx than 1.3.2 is available: 1.13.1"
+        errorLine1="coreKtx = &quot;1.3.2&quot;"
+        errorLine2="          ~~~~~~~">
+        <location
+            file="$HOME/dev/Thalos/odiseo/android/gradle/libs.versions.toml"
+            line="4"
+            column="11"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.appcompat:appcompat than 1.6.1 is available: 1.7.0"
+        errorLine1="appcompat = &quot;1.6.1&quot;"
+        errorLine2="            ~~~~~~~">
+        <location
+            file="$HOME/dev/Thalos/odiseo/android/gradle/libs.versions.toml"
+            line="8"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.android.material:material than 1.10.0 is available: 1.12.0"
+        errorLine1="material = &quot;1.10.0&quot;"
+        errorLine2="           ~~~~~~~~">
+        <location
+            file="$HOME/dev/Thalos/odiseo/android/gradle/libs.versions.toml"
+            line="9"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.navigation:navigation-fragment-ktx than 2.5.0 is available: 2.7.7"
+        errorLine1="navigation = &quot;2.5.0&quot;"
+        errorLine2="             ~~~~~~~">
+        <location
+            file="$HOME/dev/Thalos/odiseo/android/gradle/libs.versions.toml"
+            line="11"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.navigation:navigation-ui-ktx than 2.5.0 is available: 2.7.7"
+        errorLine1="navigation = &quot;2.5.0&quot;"
+        errorLine2="             ~~~~~~~">
+        <location
+            file="$HOME/dev/Thalos/odiseo/android/gradle/libs.versions.toml"
+            line="11"
+            column="14"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.jetbrains.kotlin:kotlin-compiler-embeddable than 1.9.0 is available: 1.9.10"
+        errorLine1="kotlinGradlePlugin = &quot;1.9.0&quot;"
+        errorLine2="                     ~~~~~~~">
+        <location
+            file="$HOME/dev/Thalos/odiseo/android/gradle/libs.versions.toml"
+            line="12"
+            column="22"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.security:security-crypto than 1.1.0-alpha03 is available: 1.1.0-alpha06"
+        errorLine1="androidx-security-crypto = &quot;1.1.0-alpha03&quot;"
+        errorLine2="                           ~~~~~~~~~~~~~~~">
+        <location
+            file="$HOME/dev/Thalos/odiseo/android/gradle/libs.versions.toml"
+            line="15"
+            column="28"/>
+    </issue>
+
+    <issue
+        id="DataBindingWithoutKapt"
+        message="If you plan to use data binding in a Kotlin project, you should apply the kotlin-kapt plugin."
+        errorLine1="        dataBinding = true"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle.kts"
+            line="60"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        message="This folder configuration (`v23`) is unnecessary; `minSdkVersion` is 23. Merge all the resources in this folder into `values`.">
+        <location
+            file="src/main/res/values-v23"/>
+    </issue>
+
+    <issue
+        id="UnusedIds"
+        message="The resource `R.id.nav_graph` appears to be unused"
+        errorLine1="    android:id=&quot;@+id/nav_graph&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/navigation/nav_graph.xml"
+            line="5"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        message="Missing `contentDescription` attribute on image"
+        errorLine1="    &lt;com.google.android.material.floatingactionbutton.FloatingActionButton"
+        errorLine2="     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/activity_main.xml"
+            line="24"
+            column="6"/>
+    </issue>
+
+</issues>

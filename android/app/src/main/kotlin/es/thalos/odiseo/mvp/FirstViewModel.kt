@@ -5,7 +5,6 @@ import es.thalos.odiseo.mvp.core.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import javax.inject.Inject
-
 class FirstViewModel @Inject constructor(
     @IoDispatcher dispatcher: CoroutineDispatcher,
     coroutineExceptionHandler: CoroutineExceptionHandler
