@@ -2,15 +2,15 @@
  * Configuration of android build
  */
 object BuildAndroidConfig {
-    const val APPLICATION_ID = "com.nttdata.gc.sirvec"
+    const val APPLICATION_ID = "es.thalos.odiseo.mvp"
 
-    const val BUILD_TOOLS_VERSION = "30.0.3"
+    const val BUILD_TOOLS_VERSION = "33.0.1"
     const val COMPILE_SDK_VERSION = 34
     const val MIN_SDK_VERSION = 23
     const val TARGET_SDK_VERSION = 33
 
-    const val VERSION_CODE = 5
-    const val VERSION_NAME = "2.0.0-beta"
+    const val VERSION_CODE = 1
+    const val VERSION_NAME = "0.1.0"
 
     const val TEST_INSTRUMENTATION_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
     val TEST_INSTRUMENTATION_RUNNER_ARGUMENTS = mapOf(
