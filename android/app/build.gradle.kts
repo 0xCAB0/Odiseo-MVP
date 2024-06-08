@@ -1,6 +1,9 @@
 import dependencies.Dependencies
+import extensions.addTestsDependencies
+
 import org.jetbrains.dokka.ReflectDsl.get
 import java.io.ByteArrayOutputStream
+import java.util.Locale
 
 plugins {
     id(BuildPlugins.ANDROID_APPLICATION)
@@ -8,9 +11,11 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id(BuildPlugins.KOTLIN_KAPT)
     id(BuildPlugins.KOTLIN_PARCELIZE)
+    id(BuildPlugins.DAGGER_HILT)
 }
 
 android {
+    namespace = "es.thalos.odiseo.mvp"
     compileSdk = (BuildAndroidConfig.COMPILE_SDK_VERSION)
     defaultConfig {
         applicationId = BuildAndroidConfig.APPLICATION_ID
@@ -40,6 +45,11 @@ android {
         }
     }
 
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
+
+
     flavorDimensions += (BuildProductDimensions.ENVIRONMENT)
     productFlavors {
         ProductFlavorDevelop.appCreate(this)
@@ -53,17 +63,17 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_18
+        targetCompatibility = JavaVersion.VERSION_18
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "18"
     }
 
-    lintOptions {
+    lint {
         lintConfig = rootProject.file(".lint/config.xml")
-        isCheckAllWarnings = true
-        isWarningsAsErrors = true
+        checkAllWarnings = true
+        warningsAsErrors = true
     }
 
     testOptions {
@@ -82,6 +92,11 @@ android {
             java.srcDir("src/androidTest/kotlin")
         }
     }
+
+    packagingOptions {
+        exclude("META-INF/**")
+    }
+
 }
 
 tasks.register("makeDeps") {
@@ -90,7 +105,7 @@ tasks.register("makeDeps") {
     outputs.files(fileTree(mapOf("dir" to "${rootDir}/libs", "include" to listOf("*.jar", "*.aar"))))
 
     doLast {
-        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+        if (System.getProperty("os.name").lowercase(Locale.getDefault()).contains("windows")) {
             logger.warn("Warning: can't run make on Windows, you must build gomobile.aar manually")
             return@doLast
         }
@@ -107,7 +122,14 @@ tasks.register("makeDeps") {
                 logger.info(makefileDir)
                 workingDir = file(makefileDir)
                 environment("PWD", makefileDir)
-                commandLine("make", "android.gomobile")
+                commandLine("cd", "..")
+                commandLine("make", "asdf.install_tools")
+                commandLine("cd", "android")
+                try{
+                commandLine("make", "android.gomobile")}
+                catch (e: Exception){
+                    logger.warn(e.toString())
+                }
             }
         } else {
             logger.warn("Warning: make command not found in PATH")
@@ -130,4 +152,14 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.compiler)
+
+    addTestsDependencies()
 }
+
+kapt {
+    correctErrorTypes = true
+}
+

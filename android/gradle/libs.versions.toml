@@ -10,8 +10,10 @@ material = "1.10.0"
 constraintlayout = "2.1.4"
 navigation = "2.5.0"
 kotlinGradlePlugin = "1.9.0"
-hiltVersion="2.50"
+hiltVersion="2.41"
 ksp="2.0.0-1.0.21"
+androidx-security-crypto = "1.1.0-alpha03"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -26,6 +28,7 @@ kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-p
 kotlin-gradle-embeddable = { group = "org.jetbrains.kotlin", name = "kotlin-compiler-embeddable", version.ref = "kotlinGradlePlugin" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android" , version.ref = "hiltVersion"}
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler" , version.ref = "hiltVersion"}
+androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "androidx-security-crypto" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

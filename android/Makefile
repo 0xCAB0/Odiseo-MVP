@@ -45,6 +45,20 @@ endif
 	@echo ""
 	@echo "  rm -rf $(HOME)/.gradle/caches"
 
+
+#https://developer.android.com/build/building-cmdline
+
+# .PHONY: android.debug
+# android.debug: android.build
+# $ANDROID_HOME/emulator/emulator @Pixel_7_Pro_API_30 &
+# adb wait-for-device && adb install app/build/outputs/apk/dev/debug/app-dev-debug.apk
+
+.PHONY: android.compile
+android.compile: ./gradlew assembleDebug
+
+.PHONY: android.build
+android.compile: ./gradlew installDebug
+
 .PHONY: android.gomobile
 android.gomobile: android/libs/gobridge.aar
 
